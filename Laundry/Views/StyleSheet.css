@@ -1,0 +1,14 @@
+﻿.leftside, .rightside {
+    height: 100vh;
+    width: 100%;
+    ;
+}
+
+.leftside {
+    background: antiquewhite;
+    margin-top: 100px;
+}
+
+.rightside {
+    background: antiquewhite;
+}

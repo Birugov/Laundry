@@ -1,0 +1,57 @@
+﻿<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link type="text/css" rel="stylesheet" href="StyleSheet.css" />
+    <link rel="stylesheet" href="sit">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../wwwroot/lib/jquery/dist/jquery.min.js"></script>
+    
+</head>
+<body>
+    <main>
+
+        <div class="input-group date" data-provide="datepicker" data-date-end-date="2m">
+            <input type="date" class="form-control" startDate>
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+            </div>
+        </div>
+
+    </main>
+    <script type="text/javascript">
+    $(function(){
+        $('#datepicker').datepicker()
+    });
+    </script>
+
+    <div class="row">
+        <div class="col">
+            <div class="leftside"></div>
+            <form id="form1" runat="server"></form>
+            <div class="container">
+                <div class="row">
+                    <asp:Repeater ID="rptime" runat="server">
+                        <ItemTemplate>
+                            <div class="col-md-2">
+                                <a href="#" class="btn btn-primary"><%# Eval("strtime")%></a>
+                            </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="rightside"></div>
+        </div>
+    </div>
+
+</body>
+</html>
