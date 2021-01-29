@@ -21,7 +21,7 @@
 	<div class="form-group">
 		<!-- элемент input с id = datetimepicker1 -->
 		<div class="input-group" id="datetimepicker1">
-			<input type="text" class="form-control" />
+			<input type="text" id="date" class="form-control" />
 			<span class="input-group-addon">
 				<span class="glyphicon glyphicon-calendar"></span>
 			</span>
@@ -63,13 +63,18 @@
 							<div class="card-header">
 								<h4 class="my-0 fw-normal">@i.ToString():00</h4>
 							</div>
-							<button data-toggle="modal" href="#myModal1" type="button" class="w-100 btn btn-lg btn-outline-primary">Забронировать</button>
+							<button onclick="getTime(this.value)" data-toggle="modal" href="#myModal1" type="button" value="@i.ToString():00" class="w-100 btn btn-lg btn-outline-primary">Забронировать</button>
 						</div>
 					}
 				}
 			</div>
 		</div>
 	</div>
+	<script>
+		function getTime(str) {
+			localStorage.setItem('time', str);
+		}
+	</script>
 	<div id="myModal1" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -78,7 +83,7 @@
 					<h4 class="modal-title">Заголовок модального окна 1</h4>
 				</div>
 				<div class="modal-body">
-					<form method="post" action="#" autocomplete="on" id="info">
+					<form autocomplete="on" id="info">
 						<div class="form-group">
 							<label for="Name">Имя</label>
 							<input name="Name" type="text" class="form-control" id="Name" placeholder="Введите имя">
@@ -95,12 +100,22 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-					<button type="submit" form="info" class="btn btn-primary">Сохранить изменения</button>
+					<button id="sending" type="button" form="info" class="btn btn-primary">Сохранить изменения</button>
 				</div>
 			</div>
 		</div>
 	</div>
-
+	<div id="str"></div>
+	<script>
+		sending.onclick = function () {
+			var val = " Date: " + document.getElementById('date').value;
+			val += "Time: " + localStorage.getItem('time');
+			val += " Name: " + document.getElementById('Name').value;
+			val += " Surname: " + document.getElementById('Surname').value;
+			val += " Number: " + document.getElementById('Number').value;
+			document.getElementById('str').innerHTML = "Вы ввели: " + val;
+		}
+	</script>
 	<div class="container">
 		<div class="rightplane">
 			<div class="row mt-5 mb-2">
