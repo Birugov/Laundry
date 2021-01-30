@@ -1,10 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Laundry.Migrations
 {
-    public partial class Init : Migration
+    public partial class Init2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,7 +15,9 @@ namespace Laundry.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     clientName = table.Column<string>(type: "text", nullable: true),
                     clientSurname = table.Column<string>(type: "text", nullable: true),
-                    reservationDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    clientNumber = table.Column<string>(type: "text", nullable: true),
+                    time = table.Column<string>(type: "text", nullable: true),
+                    date = table.Column<string>(type: "text", nullable: true),
                     machineNumber = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -32,7 +33,9 @@ namespace Laundry.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     clientName = table.Column<string>(type: "text", nullable: true),
                     clientSurname = table.Column<string>(type: "text", nullable: true),
-                    reservationDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    clientNumber = table.Column<string>(type: "text", nullable: true),
+                    time = table.Column<string>(type: "text", nullable: true),
+                    date = table.Column<string>(type: "text", nullable: true),
                     machineNumber = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>

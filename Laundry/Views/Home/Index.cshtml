@@ -77,50 +77,56 @@
 	</script>
 	<div id="myModal1" class="modal fade">
 		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h4 class="modal-title">Заголовок модального окна 1</h4>
-				</div>
-				<div class="modal-body">
-					<form autocomplete="on" id="info">
-						<div class="form-group">
-							<label for="Name">Имя</label>
-							<input name="Name" type="text" class="form-control" id="Name" placeholder="Введите имя">
-						</div>
-						<div class="form-group">
-							<label for="Surname">Фамилия</label>
-							<input name="Surname" type="text" class="form-control" id="Surname" placeholder="Введите фамилию">
-						</div>
-						<div class="form-group">
-							<label for="Number">Номер телефона</label>
-							<input name="Number" type="tel" class="form-control" id="Number" placeholder="Введите номер телефона">
-						</div>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-					<button id="sending" type="button" form="info" class="btn btn-primary">Сохранить изменения</button>
-				</div>
-			</div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Заголовок модального окна 1</h4>
+                </div>
+                <form method="post" action="/Home/GetOrder" autocomplete="on" id="info">
+                    <div class="modal-body">
+                        
+                            <div class="form-group">
+                                <label for="Name">Имя</label>
+                                <input name="Name" type="text" class="form-control" id="Name" placeholder="Введите имя">
+                            </div>
+                            <div class="form-group">
+                                <label for="Surname">Фамилия</label>
+                                <input name="Surname" type="text" class="form-control" id="Surname" placeholder="Введите фамилию">
+                            </div>
+                            <div class="form-group">
+                                <label for="Number">Номер телефона</label>
+                                <input name="Number" type="tel" class="form-control" id="Number" placeholder="Введите номер телефона">
+                            </div>
+						<input type="hidden" name="Date" id="dateID" />
+						<input type="hidden" name="Time" id="timeID"  />
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                        <button type="submit" form="info" class="btn btn-primary">Сохранить изменения</button>
+                    </div>
+                </form>
+            </div>
 		</div>
-	</div>
-	<div id="str"></div>
+	</div>		
 	<script>
-		sending.onclick = function () {
-			var val = " Date: " + document.getElementById('date').value;
-			val += "Time: " + localStorage.getItem('time');
-			val += " Name: " + document.getElementById('Name').value;
-			val += " Surname: " + document.getElementById('Surname').value;
-			val += " Number: " + document.getElementById('Number').value;
-			document.getElementById('str').innerHTML = "Вы ввели: " + val;
-		}
+
+		document.getElementById("info").onsubmit = function (e) {
+			var Date = document.getElementById('date').value;
+			var Time = localStorage.getItem('time');
+			document.getElementById("dateID").value = Date
+			document.getElementById("timeID").value = Time
+			
+		}		
+		
 	</script>
 	<div class="container">
 		<div class="rightplane">
 			<div class="row mt-5 mb-2">
 				@{
-					for (int i = 8; i < 21; i++)
+					for (int i = 8; i < 22; i++)
 					{
 						@Html.Partial("allItems")
 					}
