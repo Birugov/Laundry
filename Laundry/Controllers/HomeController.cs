@@ -37,20 +37,74 @@ namespace Laundry.Controllers
         }
 
         [HttpPost]
-        public ActionResult  GetOrder( string Name, string Surname, string Number, string Date, string Time )
+        public ActionResult GetOrder(
+            string Name,
+            string Surname,
+            string Number,
+            string Date,
+            string Time)
         {
+            
+            var remoteIP = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+             
             FirstMachineOrder firstMachineOrder = new FirstMachineOrder() {
             clientName=Name,
             clientSurname=Surname,
             clientNumber=Number,
             date=Date,
             time=Time,
-            machineNumber=1
+            machineNumber=1,
+            ipAddress=remoteIP.ToString()
             };
+            var orders = orderContext.firstMachineOrders;
+            foreach ( var elem in orders)
+            {
+                if (firstMachineOrder.ipAddress==elem.ipAddress && firstMachineOrder.date == elem.date)
+                {
+                    return View("ErrorHandler");
+                }             
+            }
             orderContext.firstMachineOrders.Add(firstMachineOrder);
             orderContext.SaveChanges();
-
             return View("Index");
+
+
+        }
+
+        [HttpPost]
+        public ActionResult GetSecondOrder(
+           string Name,
+           string Surname,
+           string Number,
+           string Date,
+           string Time)
+        {
+
+            var remoteIP = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+
+            SecondMachineOrder secondMachineOrder = new SecondMachineOrder()
+            {
+                clientName = Name,
+                clientSurname = Surname,
+                clientNumber = Number,
+                date = Date,
+                time = Time,
+                machineNumber = 2,
+                ipAddress = remoteIP.ToString()
+            };
+            var orders = orderContext.secondMachineOrders;
+            foreach (var elem in orders)
+            {
+                if (secondMachineOrder.ipAddress == elem.ipAddress && secondMachineOrder.date == elem.date && secondMachineOrder.date!=null)
+                {
+                    return View("ErrorHandler");
+                }
+            }
+            orderContext.secondMachineOrders.Add(secondMachineOrder);
+            orderContext.SaveChanges();
+            return View("Index");
+
+
         }
     }
 }

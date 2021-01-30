@@ -9,8 +9,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Laundry.Migrations
 {
     [DbContext(typeof(OrderContext))]
-    [Migration("20210130013224_Init2")]
-    partial class Init2
+    [Migration("20210130104134_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,6 +37,9 @@ namespace Laundry.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("date")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ipAddress")
                         .HasColumnType("text");
 
                     b.Property<int>("machineNumber")
@@ -67,6 +70,9 @@ namespace Laundry.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("date")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ipAddress")
                         .HasColumnType("text");
 
                     b.Property<int>("machineNumber")

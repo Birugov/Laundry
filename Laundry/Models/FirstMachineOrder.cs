@@ -15,6 +15,7 @@ namespace Laundry.Models
         public string time { get; set; }
         public string date { get; set; }
         public int machineNumber { get; set; }
+        public string ipAddress { get; set; }
 
   //      public FirstMachineOrder(string name, string surname, string number, string date, string time, int machineNumber)
     //    {

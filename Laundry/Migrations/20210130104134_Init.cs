@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Laundry.Migrations
 {
-    public partial class Init2 : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,7 +18,8 @@ namespace Laundry.Migrations
                     clientNumber = table.Column<string>(type: "text", nullable: true),
                     time = table.Column<string>(type: "text", nullable: true),
                     date = table.Column<string>(type: "text", nullable: true),
-                    machineNumber = table.Column<int>(type: "integer", nullable: false)
+                    machineNumber = table.Column<int>(type: "integer", nullable: false),
+                    ipAddress = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -36,7 +37,8 @@ namespace Laundry.Migrations
                     clientNumber = table.Column<string>(type: "text", nullable: true),
                     time = table.Column<string>(type: "text", nullable: true),
                     date = table.Column<string>(type: "text", nullable: true),
-                    machineNumber = table.Column<int>(type: "integer", nullable: false)
+                    machineNumber = table.Column<int>(type: "integer", nullable: false),
+                    ipAddress = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {

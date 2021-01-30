@@ -37,6 +37,9 @@ namespace Laundry.Migrations
                     b.Property<string>("date")
                         .HasColumnType("text");
 
+                    b.Property<string>("ipAddress")
+                        .HasColumnType("text");
+
                     b.Property<int>("machineNumber")
                         .HasColumnType("integer");
 
@@ -65,6 +68,9 @@ namespace Laundry.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("date")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ipAddress")
                         .HasColumnType("text");
 
                     b.Property<int>("machineNumber")
