@@ -59,7 +59,7 @@ namespace Laundry.Controllers
             var orders = orderContext.firstMachineOrders;
             foreach ( var elem in orders)
             {
-                if (firstMachineOrder.ipAddress==elem.ipAddress && firstMachineOrder.date == elem.date)
+                if (firstMachineOrder.ipAddress==elem.ipAddress && firstMachineOrder.date == elem.date && firstMachineOrder.date != null)
                 {
                     return View("ErrorHandler");
                 }             
