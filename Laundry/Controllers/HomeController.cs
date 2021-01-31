@@ -106,5 +106,23 @@ namespace Laundry.Controllers
 
 
         }
+
+        [HttpGet]
+        public ActionResult PassData()
+        {
+            var order = orderContext.firstMachineOrders;
+            
+            ViewBag.Message = order;
+            return View("test");
+        }
+
+        [HttpGet]
+        public ActionResult SecondPassData()
+        {
+            var secondorder = orderContext.secondMachineOrders;
+
+            ViewBag.Message = secondorder;
+            return View("test");
+        }
     }
 }

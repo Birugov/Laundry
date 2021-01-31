@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+@using Laundry.Models
+@{ 
+    ViewBag.Title = "SecondPassData";
+}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    @{ 
+        var secondData = ViewBag.Message;
+    }
+
+    @foreach (SecondMachineOrder second in secondData)
+    {
+        <h3>@second.clientName</h3>
+    }
+
+</body>
+</html>
