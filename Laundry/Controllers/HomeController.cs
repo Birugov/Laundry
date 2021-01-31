@@ -22,6 +22,9 @@ namespace Laundry.Controllers
 
         public IActionResult Index()
         {
+            var order = orderContext.firstMachineOrders;
+
+            ViewBag.Message = order;
             return View();
         }
 
@@ -113,7 +116,7 @@ namespace Laundry.Controllers
             var order = orderContext.firstMachineOrders;
             
             ViewBag.Message = order;
-            return View("test");
+            return View("Index");
         }
 
         [HttpGet]
