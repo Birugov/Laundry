@@ -41,16 +41,23 @@
             result.setDate(result.getDate() + days);
             return result;
         }
+        //функция для вычета дней
+        function subtractDays(date, days) {
+            var result = new Date(date);
+            result.setDate(result.getDate() - days);
+            return result;
+		}
         date = $('#drop-off').val();
         date = moment(date);
         maxDate = addDays(date, 60);
+        minDate = subtractDays(date, 1);
         $.noConflict();
         jQuery(document).ready(function ($) {
             $(function () {
                 $('#datetimepicker1').datetimepicker({
                     stepping: 10,
                     defaultDate: date,
-                    minDate: date,
+                    minDate: minDate,
                     maxDate: maxDate,
                     format: 'DD.MM.YYYY'
                 });
