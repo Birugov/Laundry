@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body id="fullBody" onload="check()">
 	<link data-require="bootstrap@3.3.7" data-semver="3.3.7" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.css" />
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.min.css" />
@@ -21,7 +21,6 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script data-require="bootstrap@3.3.7" data-semver="3.3.7" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-
 	@{
 		var data = ViewBag.Message;
 	}
@@ -63,7 +62,7 @@
 			result.setDate(result.getDate() - days);
 			return result;
 		}
-		date = $('#drop-off').val();
+		date = $('#drop-off').val();		
 		date = moment(date);
 		maxDate = addDays(date, 60);
 		minDate = subtractDays(date, 1);
@@ -79,10 +78,10 @@
 				});
 			});
 		});
-	</script>
+	</script>	
 	<h3 id="tester"></h3>
 	@*Создание кнопок*@
-	<div class="container">
+	<div id="firstButtons" class="container">
 		<div class="rightplane">
 			<div class="row mt-5 mb-2">
 				@{
@@ -92,7 +91,7 @@
 							<div class="card-header">
 								<h4 class="my-0 fw-normal">@i.ToString():00</h4>
 							</div>
-							<button onclick="check( @Json.Serialize(dates))" @*onclick="getTime(this.value)"*@ data-toggle="modal" href="#myModal1" type="button" value="@i.ToString():00" class="w-100 btn btn-lg btn-outline-primary">Забронировать</button>
+							<button onclick="getTime(this.value)" id="@i.ToString():00" data-toggle="modal" href="#myModal1" type="button" value="@i.ToString():00" class="w-100 btn btn-lg btn-outline-primary">Забронировать</button>
 						</div>
 					}
 				}
@@ -101,13 +100,22 @@
 	</div>
 	@*Проверка занятости времени*@
 	<script>
-		function check(dates) {
-			alert(dates);
-			var date = document.getElementById("date").innerHTML;
-			var time = date + " : " + str;
-			document.getElementById('tester').innerHTML = dates;
+		function check() {
+			var dates = @Json.Serialize(dates);
+			var date = document.getElementById("date").value;
+			for (let i = 8; i < 22; i++) {
+				if (dates.includes(date + ' : ' + i + ":00", 0)) {
+					var a = document.getElementById(i + ":00");
+					a.disabled = true;
+				}
+				else {
+					document.getElementById(i + ":00").disabled = false;
+				}
+			}
 		}
-	</script>
+
+		setInterval(check, 1000);
+	</script>	
 	@*Получение времени*@
 	<script>
 		function getTime(str) {
