@@ -1,7 +1,7 @@
 ﻿@model Laundry.Models.FirstMachineOrder
 @using Laundry.Models
 @{
-    ViewBag.Title = "PassData";
+	ViewBag.Title = "Laundry";
 }
 @{
 }
@@ -9,8 +9,8 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+	<meta charset="UTF-8">
+	<title>Title</title>
 </head>
 <body id="fullBody" onload="check()">
 	<link data-require="bootstrap@3.3.7" data-semver="3.3.7" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
@@ -25,18 +25,19 @@
 		var data = ViewBag.Message;
 	}
 
-	@{ 
+	@{
 		List<string> dates = new List<string>();
+		List<string> names = new List<string>();
+		List<string> surnames = new List<string>();
+		List<string> tel = new List<string>();
+
 		foreach (FirstMachineOrder order in data)
 		{
-			dates.Add(order.date +" : "+ order.time);
+			dates.Add(order.date + " : " + order.time + ";" + order.clientName + ", " + order.clientSurname + ", " + order.clientNumber);
+			//names.Add(order.clientName +", "+order.clientSurname+", "+ order.clientNumber);
 		}
-		foreach (var order in dates)
-		{
-			<p>@order</p>
-		}		
 	}
-	
+
 	<div class="form-group">
 		<!-- элемент input с id = datetimepicker1 -->
 		<div class="input-group" id="datetimepicker1">
@@ -62,7 +63,8 @@
 			result.setDate(result.getDate() - days);
 			return result;
 		}
-		date = $('#drop-off').val();		
+		//Расчёт дат
+		date = $('#drop-off').val();
 		date = moment(date);
 		maxDate = addDays(date, 60);
 		minDate = subtractDays(date, 1);
@@ -78,7 +80,7 @@
 				});
 			});
 		});
-	</script>	
+	</script>
 	<h3 id="tester"></h3>
 	@*Создание кнопок*@
 	<div id="firstButtons" class="container">
@@ -89,7 +91,7 @@
 					{
 						<div class="card mb-4 shadow-sm" style=" border:hidden; border-radius:.25rem; margin:2px">
 							<div class="card-header">
-								<h4 class="my-0 fw-normal">@i.ToString():00</h4>
+								<h4 id="@i.ToString():00h4" class="my-0 fw-normal">@i.ToString():00</h4>
 							</div>
 							<button onclick="getTime(this.value)" id="@i.ToString():00" data-toggle="modal" href="#myModal1" type="button" value="@i.ToString():00" class="w-100 btn btn-lg btn-outline-primary">Забронировать</button>
 						</div>
@@ -99,23 +101,30 @@
 		</div>
 	</div>
 	@*Проверка занятости времени*@
-	<script>
-		function check() {
-			var dates = @Json.Serialize(dates);
+<script>
+		function check() {		
+			var dates="";
+			var orders = @Json.Serialize(dates);			
 			var date = document.getElementById("date").value;
-			for (let i = 8; i < 22; i++) {
-				if (dates.includes(date + ' : ' + i + ":00", 0)) {
-					var a = document.getElementById(i + ":00");
-					a.disabled = true;
+			orders.forEach(function (item, i, orders) {
+				dates = item.split(';')[0];				
+				for (let i = 8; i < 22; i++) {
+					if (dates == date + ' : ' + i + ":00") {
+						var a = document.getElementById(i + ":00");
+						a.disabled = true;
+						document.getElementById(i + ":00").innerHTML = item.split(';')[1];
+						counter++;
+					}
+					else {
+						document.getElementById(i + ":00").disabled = false;
+						document.getElementById(i + ":00").innerHTML = "Забронировать";
+					}
 				}
-				else {
-					document.getElementById(i + ":00").disabled = false;
-				}
-			}
+			})				
 		}
 
 		setInterval(check, 1000);
-	</script>	
+</script>
 	@*Получение времени*@
 	<script>
 		function getTime(str) {
