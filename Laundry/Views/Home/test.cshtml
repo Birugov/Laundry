@@ -1,7 +1,8 @@
 ﻿<!DOCTYPE html>
 @using Laundry.Models
 @{ 
-    ViewBag.Title = "SecondPassData";
+    
+    ViewBag.Title = "PassData";
 }
 <html>
 <head>
@@ -9,13 +10,20 @@
     <title></title>
 </head>
 <body>
-    @{ 
-        var secondData = ViewBag.Message;
+    @{
+        var secondData = ViewBag.Pack;
+        var data = ViewBag.Message;
+
     }
 
     @foreach (SecondMachineOrder second in secondData)
     {
         <h3>@second.clientName</h3>
+    }
+
+    @foreach (FirstMachineOrder first in data)
+    {
+        <h3>@first.clientName</h3>
     }
 
 </body>

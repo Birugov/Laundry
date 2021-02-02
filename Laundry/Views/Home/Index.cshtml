@@ -2,9 +2,12 @@
 @using Laundry.Models
 @{
 	ViewBag.Title = "Laundry";
+	
 }
 @{
 }
+
+
 
 
 <html lang="en">
@@ -12,102 +15,245 @@
 	<meta charset="UTF-8">
 	<title>Title</title>
 </head>
-<body id="fullBody" onload="check()">
-	<link data-require="bootstrap@3.3.7" data-semver="3.3.7" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.css" />
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.min.css" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script data-require="bootstrap@3.3.7" data-semver="3.3.7" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-	@{
-		var data = ViewBag.Message;
-	}
+<body id="fullBody" onload="check(), check2()">
+    <link data-require="bootstrap@3.3.7" data-semver="3.3.7" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script data-require="bootstrap@3.3.7" data-semver="3.3.7" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    @{
+        var data = ViewBag.Message;
+        var seconddata = ViewBag.Pack;
 
-	@{
-		List<string> dates = new List<string>();
-		List<string> names = new List<string>();
-		List<string> surnames = new List<string>();
-		List<string> tel = new List<string>();
+    }
 
-		foreach (FirstMachineOrder order in data)
-		{
-			dates.Add(order.date + " : " + order.time + ";" + order.clientName + ", " + order.clientSurname + ", " + order.clientNumber);
-			//names.Add(order.clientName +", "+order.clientSurname+", "+ order.clientNumber);
-		}
-	}
+    @{
+        List<string> dates = new List<string>();
+        List<string> seconddate = new List<string>();
 
-	<div class="form-group">
-		<!-- элемент input с id = datetimepicker1 -->
-		<div class="input-group" id="datetimepicker1">
-			<input type="text" id="date" class="form-control" />
-			<span class="input-group-addon">
-				<span class="glyphicon glyphicon-calendar"></span>
-			</span>
-		</div>
-	</div>
-	@{
-		string now = DateTime.Now.ToString("d");
-	}
-	<script type="text/javascript">
-		//Функция для добавления дней
-		function addDays(date, days) {
-			var result = new Date(date);
-			result.setDate(result.getDate() + days);
-			return result;
-		}
-		//функция для вычета дней
-		function subtractDays(date, days) {
-			var result = new Date(date);
-			result.setDate(result.getDate() - days);
-			return result;
-		}
-		//Расчёт дат
-		date = $('#drop-off').val();
-		date = moment(date);
-		maxDate = addDays(date, 60);
-		minDate = subtractDays(date, 1);
-		$.noConflict();
-		jQuery(document).ready(function ($) {
-			$(function () {
-				$('#datetimepicker1').datetimepicker({
-					stepping: 10,
-					defaultDate: date,
-					minDate: minDate,
-					maxDate: maxDate,
-					format: 'DD.MM.YYYY'
-				});
-			});
-		});
-	</script>
-	<h3 id="tester"></h3>
-	@*Создание кнопок*@
-	<div id="firstButtons" class="container">
-		<div class="rightplane">
-			<div class="row mt-5 mb-2">
-				@{
-					for (int i = 8; i < 22; i++)
-					{
-						<div class="card mb-4 shadow-sm" style=" border:hidden; border-radius:.25rem; margin:2px">
-							<div class="card-header">
-								<h4 id="@i.ToString():00h4" class="my-0 fw-normal">@i.ToString():00</h4>
-							</div>
-							<button onclick="getTime(this.value)" id="@i.ToString():00" data-toggle="modal" href="#myModal1" type="button" value="@i.ToString():00" class="w-100 btn btn-lg btn-outline-primary">Забронировать</button>
-						</div>
-					}
-				}
-			</div>
-		</div>
-	</div>
-	@*Проверка занятости времени*@
-<script>
-		function check() {		
-			var dates="";
-			var orders = @Json.Serialize(dates);			
+
+        foreach (FirstMachineOrder order in data)
+        {
+            dates.Add(order.date + " : " + order.time + ";" + order.clientName + " " + order.clientSurname + ", " + order.clientNumber);
+            //names.Add(order.clientName +", "+order.clientSurname+", "+ order.clientNumber);
+        }
+
+        foreach (SecondMachineOrder secondorder in seconddata)
+        {
+            seconddate.Add(secondorder.date + " : " + secondorder.time + ";" + secondorder.clientName + " " + secondorder.clientSurname + ", " + secondorder.clientNumber);
+            //names.Add(order.clientName +", "+order.clientSurname+", "+ order.clientNumber);
+        }
+
+
+    }
+
+    <div class="form-group">
+        <!-- элемент input с id = datetimepicker1 -->
+        <div class="input-group" id="datetimepicker1">
+            <input type="text" id="date" class="form-control" required />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+    </div>
+    @{
+        string now = DateTime.Now.ToString("d");
+    }
+    <script type="text/javascript">
+        //Функция для добавления дней
+        function addDays(date, days) {
+            var result = new Date(date);
+            result.setDate(result.getDate() + days);
+            return result;
+        }
+        //функция для вычета дней
+        function subtractDays(date, days) {
+            var result = new Date(date);
+            result.setDate(result.getDate() - days);
+            return result;
+        }
+        //Расчёт дат
+        date = $('#drop-off').val();
+        date = moment(date);
+        maxDate = addDays(date, 60);
+        minDate = subtractDays(date, 1);
+        $.noConflict();
+        jQuery(document).ready(function ($) {
+            $(function () {
+                $('#datetimepicker1').datetimepicker({
+                    stepping: 10,
+                    defaultDate: date,
+                    minDate: minDate,
+                    maxDate: maxDate,
+                    format: 'DD.MM.YYYY'
+                });
+            });
+        });
+    </script>
+    <h3 id="tester"></h3>
+    @*Создание кнопок*@
+<div id="firstButtons" class="container">
+    <h1 class="display-4">Машинка номер один</h1>
+    <div class="rightplane">
+        <div class="row mt-5 mb-2">
+            @{
+                for (int i = 8; i < 22; i++)
+                {
+                    <div class="card mb-4 shadow-sm" style=" border:hidden; border-radius:.25rem; margin:2px">
+                        <div class="card-header">
+                            <h4 id="@i.ToString():00h4" class="my-0 fw-normal">@i.ToString():00</h4>
+                        </div>
+                        <button onclick="getTime(this.value)" id="@i.ToString():00" data-toggle="modal" href="#myModal1" type="button" value="@i.ToString():00" class="w-100 btn btn-lg btn-outline-primary">Забронировать</button>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+    @*Проверка занятости времени*@
+
+    @*Получение времени*@
+    <script>
+        function getTime(str) {
+            localStorage.setItem('time', str);
+        }
+    </script>
+    @*Модальная форма для брони*@
+    <div id="myModal1" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                   
+                    <h4 class="modal-title"></h4>
+                </div>
+                <form method="post" action="/Home/GetOrder" autocomplete="on" id="info">
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="Name">Имя</label>
+                            <input name="Name" type="text" class="form-control" id="Name" placeholder="Введите имя" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Surname">Фамилия</label>
+                            <input name="Surname" type="text" class="form-control" id="Surname" placeholder="Введите фамилию" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Number">Номер телефона</label>
+                            <input name="Number" type="number" class="form-control" id="Number" placeholder="Введите номер телефона" required>
+                        </div>
+                        <input type="hidden" name="Date" id="dateID" />
+                        <input type="hidden" name="Time" id="timeID" />
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                        <button type="submit" form="info" class="btn btn-primary">Сохранить изменения</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    @*Отправка данных брони*@
+    <script>
+
+        document.getElementById("info").onsubmit = function (e) {
+            var Date = document.getElementById('date').value;
+            var Time = localStorage.getItem('time');
+            document.getElementById("dateID").value = Date
+            document.getElementById("timeID").value = Time
+
+        }
+
+    </script>
+
+  
+    <div class="container">
+        <h1 class="display-4">Машинка номер два</h1>
+        <div class="rightplane">
+            <div class="row mt-5 mb-2">
+
+                @{
+                    for (int ik = 8; ik < 22; ik++)
+                    {
+                        <div class="card mb-4 shadow-sm" style=" border:hidden; border-radius:.25rem; margin:2px">
+                            <div class="card-header">
+                                <h4 class="my-0 fw-normal">@ik.ToString():00</h4>
+                            </div>
+                            <button onclick="getSecondTime(this.value)" id="@ik.ToString():01" data-toggle="modal" href="#myModal2" type="button" value="@ik.ToString():00" class="w-100 btn btn-lg btn-outline-primary">Забронировать</button>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <script>
+        function getSecondTime(str) {
+            localStorage.setItem('timeSecond', str);
+        }
+    </script>
+    <div id="myModal2" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title">Заголовок модального окна 2</h4>
+                </div>
+                <form method="post" action="/Home/GetSecondOrder" autocomplete="on" id="infoSecond">
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="Name">Имя</label>
+                            <input name="Name" type="text" class="form-control" id="secondName" placeholder="Введите имя" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Surname">Фамилия</label>
+                            <input name="Surname" type="text" class="form-control" id="secondSurname" placeholder="Введите фамилию" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Number">Номер телефона</label>
+                            <input name="Number" type="tel" class="form-control" id="secondNumber" data-fv-notempty-message="Введите номер телефона" placeholder="Введите номер телефона" required>
+                            
+                            <input type="hidden" name="Date" id="seconddateID" />
+                            <input type="hidden" name="Time" id="secondtimeID" />
+
+
+
+                        </div>
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                        <button type="submit" form="infoSecond" class="btn btn-primary">Сохранить изменения</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        document.getElementById("infoSecond").onsubmit = function (e) {
+            var secondDate = document.getElementById('date').value;
+            var secondTime = localStorage.getItem('timeSecond');
+            document.getElementById("seconddateID").value = secondDate
+            document.getElementById("secondtimeID").value = secondTime
+
+        }
+
+    </script>
+
+    <script>
+		function check() {
+            var dates = "";
+            var secdates = "";
+            var orders = @Json.Serialize(dates);
+            var secondorders=@Json.Serialize(seconddate);
 			var date = document.getElementById("date").value;
 			orders.forEach(function (item, i, orders) {
-				dates = item.split(';')[0];				
+				dates = item.split(';')[0];
 				for (let i = 8; i < 22; i++) {
 					if (dates == date + ' : ' + i + ":00") {
 						var a = document.getElementById(i + ":00");
@@ -120,135 +266,38 @@
 						document.getElementById(i + ":00").innerHTML = "Забронировать";
 					}
 				}
-			})				
+            })
+
+
 		}
 
 		setInterval(check, 1000);
-</script>
-	@*Получение времени*@
-	<script>
-		function getTime(str) {
-			localStorage.setItem('time', str);
-		}
-	</script>
-	@*Модальная форма для брони*@
-	<div id="myModal1" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h4 class="modal-title">Заголовок модального окна 1</h4>
-				</div>
-				<form method="post" action="/Home/GetOrder" autocomplete="on" id="info">
-					<div class="modal-body">
+    </script>
 
-						<div class="form-group">
-							<label for="Name">Имя</label>
-							<input name="Name" type="text" class="form-control" id="Name" placeholder="Введите имя">
-						</div>
-						<div class="form-group">
-							<label for="Surname">Фамилия</label>
-							<input name="Surname" type="text" class="form-control" id="Surname" placeholder="Введите фамилию">
-						</div>
-						<div class="form-group">
-							<label for="Number">Номер телефона</label>
-							<input name="Number" type="tel" class="form-control" id="Number" placeholder="Введите номер телефона">
-						</div>
-						<input type="hidden" name="Date" id="dateID" />
-						<input type="hidden" name="Time" id="timeID" />
+    <script>
+        function check2() {
+            var secdates = "";
+            var secondorders =@Json.Serialize(seconddate);
+            var date = document.getElementById("date").value;
+            secondorders.forEach(function (itemk, ik, secondorders) {
+                secdates = itemk.split(';')[0];
+                for (let ik = 8; ik < 22; ik++) {
+                    if (secdates == date + ' : ' + ik + ":00") {
+                        var a = document.getElementById(ik + ":01");
+                        a.disabled = true;
+                        document.getElementById(ik + ":01").innerHTML = itemk.split(';')[1];
+                        counter++;
+                    }
+                    else {
+                        document.getElementById(ik + ":01").disabled = false;
+                        document.getElementById(ik + ":01").innerHTML = "Забронировать";
+                    }
+                }
+            })
 
 
-
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-						<button type="submit" form="info" class="btn btn-primary">Сохранить изменения</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	@*Отправка данных брони*@
-	<script>
-
-		document.getElementById("info").onsubmit = function (e) {
-			var Date = document.getElementById('date').value;
-			var Time = localStorage.getItem('time');
-			document.getElementById("dateID").value = Date
-			document.getElementById("timeID").value = Time
-
-		}
-
-	</script>
-	<div class="container">
-		<div class="rightplane">
-			<div class="row mt-5 mb-2">
-
-				@{
-					for (int i = 8; i < 22; i++)
-					{
-						<div class="card mb-4 shadow-sm" style=" border:hidden; border-radius:.25rem; margin:2px">
-							<div class="card-header">
-								<h4 class="my-0 fw-normal">@i.ToString():00</h4>
-							</div>
-							<button onclick="getSecondTime(this.value)" data-toggle="modal" href="#myModal2" type="button" value="@i.ToString():00" class="w-100 btn btn-lg btn-outline-primary">Забронировать</button>
-						</div>
-					}
-				}
-			</div>
-		</div>
-	</div>
-	<script>
-		function getSecondTime(str) {
-			localStorage.setItem('timeSecond', str);
-		}
-	</script>
-	<div id="myModal2" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h4 class="modal-title">Заголовок модального окна 2</h4>
-				</div>
-				<form method="post" action="/Home/GetSecondOrder" autocomplete="on" id="infoSecond">
-					<div class="modal-body">
-
-						<div class="form-group">
-							<label for="Name">Имя</label>
-							<input name="Name" type="text" class="form-control" id="secondName" placeholder="Введите имя">
-						</div>
-						<div class="form-group">
-							<label for="Surname">Фамилия</label>
-							<input name="Surname" type="text" class="form-control" id="secondSurname" placeholder="Введите фамилию">
-						</div>
-						<div class="form-group">
-							<label for="Number">Номер телефона</label>
-							<input name="Number" type="tel" class="form-control" id="secondNumber" placeholder="Введите номер телефона">
-						</div>
-						<input type="hidden" name="Date" id="seconddateID" />
-						<input type="hidden" name="Time" id="secondtimeID" />
-
-
-
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-						<button type="submit" form="infoSecond" class="btn btn-primary">Сохранить изменения</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<script>
-
-		document.getElementById("infoSecond").onsubmit = function (e) {
-			var secondDate = document.getElementById('date').value;
-			var secondTime = localStorage.getItem('timeSecond');
-			document.getElementById("seconddateID").value = secondDate
-			document.getElementById("secondtimeID").value = secondTime
-
-		}
-
-	</script>
+        }
+        setInterval(check2, 1000);
+    </script>
 </body>
 </html>

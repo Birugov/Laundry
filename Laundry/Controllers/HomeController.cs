@@ -23,13 +23,15 @@ namespace Laundry.Controllers
         public IActionResult Index()
         {
             var order = orderContext.firstMachineOrders;
-
             ViewBag.Message = order;
+            var secondorder = orderContext.secondMachineOrders;
+            ViewBag.Pack = secondorder;
             return View();
         }
 
         public IActionResult Privacy()
         {
+
             return View();
         }
 
@@ -62,13 +64,18 @@ namespace Laundry.Controllers
             var orders = orderContext.firstMachineOrders;
             foreach ( var elem in orders)
             {
-                if (firstMachineOrder.ipAddress==elem.ipAddress && firstMachineOrder.date == elem.date && firstMachineOrder.date != null)
+                if (firstMachineOrder.ipAddress==elem.ipAddress && firstMachineOrder.date == elem.date && firstMachineOrder.date == null)
                 {
                     return View("ErrorHandler");
                 }             
             }
             orderContext.firstMachineOrders.Add(firstMachineOrder);
             orderContext.SaveChanges();
+
+            var order = orderContext.firstMachineOrders;
+            ViewBag.Message = order;
+            var secondorder = orderContext.secondMachineOrders;
+            ViewBag.Pack = secondorder;
             return View("Index");
 
 
@@ -98,34 +105,23 @@ namespace Laundry.Controllers
             var orders = orderContext.secondMachineOrders;
             foreach (var elem in orders)
             {
-                if (secondMachineOrder.ipAddress == elem.ipAddress && secondMachineOrder.date == elem.date && secondMachineOrder.date!=null)
+                if (secondMachineOrder.ipAddress == elem.ipAddress && secondMachineOrder.date == elem.date && secondMachineOrder.date==null)
                 {
                     return View("ErrorHandler");
                 }
             }
             orderContext.secondMachineOrders.Add(secondMachineOrder);
             orderContext.SaveChanges();
-            return View("Index");
-
-
-        }
-
-        [HttpGet]
-        public ActionResult PassData()
-        {
             var order = orderContext.firstMachineOrders;
-            
             ViewBag.Message = order;
-            return View("Index");
-        }
-
-        [HttpGet]
-        public ActionResult SecondPassData()
-        {
             var secondorder = orderContext.secondMachineOrders;
+            ViewBag.Pack = secondorder;
+            return View("Index");
 
-            ViewBag.Message = secondorder;
-            return View("test");
+
         }
+
+      
+
     }
 }
