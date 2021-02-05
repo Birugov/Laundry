@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Laundry.Models;
+using MySql.Data.MySqlClient;
 
 namespace Laundry.Controllers
 {
@@ -62,13 +63,7 @@ namespace Laundry.Controllers
             ipAddress=remoteIP.ToString()
             };
             var orders = orderContext.firstMachineOrders;
-            foreach ( var elem in orders)
-            {
-                if (firstMachineOrder.ipAddress==elem.ipAddress && firstMachineOrder.date == elem.date && firstMachineOrder.date == null)
-                {
-                    return View("ErrorHandler");
-                }             
-            }
+
             orderContext.firstMachineOrders.Add(firstMachineOrder);
             orderContext.SaveChanges();
 
@@ -103,15 +98,10 @@ namespace Laundry.Controllers
                 ipAddress = remoteIP.ToString()
             };
             var orders = orderContext.secondMachineOrders;
-            foreach (var elem in orders)
-            {
-                if (secondMachineOrder.ipAddress == elem.ipAddress && secondMachineOrder.date == elem.date && secondMachineOrder.date==null)
-                {
-                    return View("ErrorHandler");
-                }
-            }
+
             orderContext.secondMachineOrders.Add(secondMachineOrder);
             orderContext.SaveChanges();
+           
             var order = orderContext.firstMachineOrders;
             ViewBag.Message = order;
             var secondorder = orderContext.secondMachineOrders;

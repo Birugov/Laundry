@@ -28,7 +28,7 @@ namespace Laundry
             string connection = Configuration.GetConnectionString("DefaultConnection");
 
             services.AddDbContext<OrderContext>(options =>
-            options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
         }
 
@@ -46,7 +46,7 @@ namespace Laundry
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();

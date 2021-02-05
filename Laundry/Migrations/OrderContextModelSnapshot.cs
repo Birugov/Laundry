@@ -3,7 +3,6 @@ using Laundry.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Laundry.Migrations
 {
@@ -14,16 +13,14 @@ namespace Laundry.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseIdentityByDefaultColumns()
-                .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.2");
+                .HasAnnotation("ProductVersion", "3.1.10")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Laundry.Models.FirstMachineOrder", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasColumnType("int");
 
                     b.Property<string>("clientName")
                         .HasColumnType("text");
@@ -41,7 +38,7 @@ namespace Laundry.Migrations
                         .HasColumnType("text");
 
                     b.Property<int>("machineNumber")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.Property<string>("time")
                         .HasColumnType("text");
@@ -55,8 +52,7 @@ namespace Laundry.Migrations
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasColumnType("int");
 
                     b.Property<string>("clientName")
                         .HasColumnType("text");
@@ -74,7 +70,7 @@ namespace Laundry.Migrations
                         .HasColumnType("text");
 
                     b.Property<int>("machineNumber")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.Property<string>("time")
                         .HasColumnType("text");
